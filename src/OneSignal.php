@@ -62,6 +62,9 @@ class OneSignal
     {
         $response = $this->httpClient->sendRequest($request);
 
+        activity('onesignal')
+            ->log($response->getBody()->getContents());
+
         $contentType = $response->getHeader('Content-Type')[0] ?? 'application/json';
 
         if (!preg_match('/\bjson\b/i', $contentType)) {
